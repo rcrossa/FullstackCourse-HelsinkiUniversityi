@@ -1,21 +1,36 @@
-const Hello = (props) => {
-  console.log(props)
-  return (
-    <div>
-      <p>
-        Hello {props.name}, you are {props.age} years old
-      </p>
-    </div>
-  )
-}
 const App = () => {
-  const name = 'Peter'
-  const age = 10
+
+  const Header = (props) => {
+    return (
+      <>
+        <h1>{props.course}</h1>
+      </>
+    )
+  }
+
+  const Content = () => {
+    return (
+      <>
+        <p>
+          Content
+        </p>
+      </>
+    )
+  }
+
+  const Total = () => {
+    return (
+      <><p>
+        Total
+      </p></>
+    )
+  }
+  const course = 'Half Stack application development'
   return (
     <div>
-      <h1>Greetings</h1>
-      <Hello name='Maya' age={26 + 10} />
-      <Hello name={name} age={age} />
+      <Header course={course} />
+      <Content />
+      <Total />
     </div>
   )
 }
