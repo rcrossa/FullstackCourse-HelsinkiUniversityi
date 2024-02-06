@@ -16,30 +16,12 @@ const App = () => {
 
   const increaseByGood = () => setGood(good + 1);
   const increaseByNeutral = () => setNeutral(neutral + 1);
-  const increaseByBad = () => setBad(bad + 1);
-  const check = (e) => {
-    console.log(e.target.value)
-    // switch (e.target.value) {
-    //   case good:
-    //     console.log(e.target.value)
-    //     setGood(good + 1);
-    //     setALL(...all + 1);
-    //     break;
-    //   case neutral:
-    //     setNeutral(neutral + 1);
-    //     break;
-    //   case bad:
-    //     setBad(bad + 1);
-    //     break;
+  const increaseByBad = () => { setBad(bad + 1) };
 
-    //   default:
-    //     break;
-    // }
-  };
   return (
     <div>
       <h1>Give Feedback</h1>
-      <Button onClick={check} text='good' />
+      <Button onClick={increaseByGood} text='good' />
       <Button onClick={increaseByNeutral} text='neutral' />
       <Button onClick={increaseByBad} text='bad' />
       <h1>stactistics</h1>
