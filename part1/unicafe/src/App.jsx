@@ -1,21 +1,79 @@
 import { useState, useEffect } from "react"
 
 
-const Display = ({ counter, text }) => <div>{text} {counter}</div>
+const Display = ({ counter, text }) => {
+  return (
+    <>
+      <table style={{ display: "flex", flexDirection: 'row', borderCollapse: 'separate', borderSpacing: '2em 0em' }}>
+        <tbody style={{ display: "flex" }}>
+          <tr>
+            <td style={{ alignContent: "flex-end", width: '50px' }}>{text}</td>
+            <td style={{ alignContent: "flex-end" }}>{counter}</td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  )
+}
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 const Stactistics = ({ good, neutral, bad, all, average, positive }) => {
 
   return (
     <>
-      <h1>stactistics</h1>
-      <Display counter={good} text='good' />
-      <Display counter={neutral} text='neutral' />
-      <Display counter={bad} text='bad' />
-      <Display counter={all} text='all' />
-      <Display counter={average} text='average' />
-      <Display counter={positive} text='positive' />
+      <table>
+        <thead>
+          <tr>
+            <th>Stastistics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <Display counter={good} text='good' />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Display counter={neutral} text='neutral' />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Display counter={bad} text='bad' />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Display counter={all} text='all' />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Display counter={average} text='average' />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Display counter={positive} text='positive' />
+            </td>
+          </tr>
+        </tbody>
+      </table >
     </>
   )
+}
+
+const Buttonbox = ({ increaseByGood, increaseByNeutral, increaseByBad, resultReset }) => {
+  return (
+    <>
+      <Button onClick={increaseByGood} text='Good' />
+      <Button onClick={increaseByNeutral} text='Neutral' />
+      <Button onClick={increaseByBad} text='Bad' />
+      <Button onClick={resultReset} text='consultar' />
+      <Button onClick={resultReset} text='Reset' />
+    </>
+  )
+
 }
 
 const App = () => {
@@ -43,6 +101,15 @@ const App = () => {
   const finFeedback = () => {
     setFinal(true);
   }
+  const resultReset = () => {
+    setFinal(false);
+    setGood(0);
+    setNeutral(0);
+    setBad(0);
+    setALL(0);
+    setAverage(0);
+    setPositive(0);
+  }
 
   useEffect(() => {
     if (isNaN(average)) {
@@ -59,9 +126,7 @@ const App = () => {
     return (
       <div>
         <h1>Give Feedback</h1>
-        <Button onClick={increaseByGood} text='good' />
-        <Button onClick={increaseByNeutral} text='neutral' />
-        <Button onClick={increaseByBad} text='bad' />
+        <Buttonbox increaseByGood={increaseByGood} increaseByNeutral={increaseByNeutral} increaseByBad={increaseByBad} resultReset={resultReset} />
         <Stactistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
       </div>
     )
@@ -69,10 +134,7 @@ const App = () => {
     return (
       <div>
         <h1>Give Feedback</h1>
-        <Button onClick={increaseByGood} text='good' />
-        <Button onClick={increaseByNeutral} text='neutral' />
-        <Button onClick={increaseByBad} text='bad' />
-        <Button onClick={finFeedback} text='Fin feedback' />
+        <Buttonbox increaseByGood={increaseByGood} increaseByNeutral={increaseByNeutral} increaseByBad={increaseByBad} resultReset={finFeedback} />
         <h1>Stactistics</h1>
         <p>No feedback given</p>
       </div>
