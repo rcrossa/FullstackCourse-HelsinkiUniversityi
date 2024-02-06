@@ -26,6 +26,7 @@ const App = () => {
   const [all, setALL] = useState(0);
   const [average, setAverage] = useState(0);
   const [positive, setPositive] = useState(0);
+  const [final, setFinal] = useState(false);
 
   const increaseByGood = () => {
     setGood(good + 1);
@@ -39,6 +40,9 @@ const App = () => {
     setBad(bad + 1)
     setALL(all + 1);
   };
+  const finFeedback = () => {
+    setFinal(true);
+  }
 
   useEffect(() => {
     if (isNaN(average)) {
@@ -51,16 +55,29 @@ const App = () => {
 
   }, [good, all, neutral, bad, average]);
 
-  return (
-    <div>
-      <h1>Give Feedback</h1>
-      <Button onClick={increaseByGood} text='good' />
-      <Button onClick={increaseByNeutral} text='neutral' />
-      <Button onClick={increaseByBad} text='bad' />
-      <h1>stactistics</h1>
-      <Stactistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
-    </div>
-  )
+  if (final) {
+    return (
+      <div>
+        <h1>Give Feedback</h1>
+        <Button onClick={increaseByGood} text='good' />
+        <Button onClick={increaseByNeutral} text='neutral' />
+        <Button onClick={increaseByBad} text='bad' />
+        <Stactistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <h1>Give Feedback</h1>
+        <Button onClick={increaseByGood} text='good' />
+        <Button onClick={increaseByNeutral} text='neutral' />
+        <Button onClick={increaseByBad} text='bad' />
+        <Button onClick={finFeedback} text='Fin feedback' />
+        <h1>Stactistics</h1>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
 }
 
 export default App
