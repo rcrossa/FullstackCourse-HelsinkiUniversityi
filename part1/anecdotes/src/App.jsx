@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-// const Button = ({ onClick, text }) => <Button onClick={onClick}>{text}</Button>
+
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 const Display = ({ counter }) => {
   console.log(counter)
@@ -36,12 +36,23 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState([])
+  const [votes, setVotes] = useState(0)
 
+  console.log(selected)
+  console.log(votes)
+
+  const vote = () => {
+    setVotes(votes + 1)
+  }
 
   return (
     <div>
+      <h1>Phrase</h1>
       <Display counter={selected} />
+      <h2>Votes</h2>
+      <Display counter={votes} />
       <Button onClick={random} text="next anecdote" />
+      <Button onClick={vote} text="vote" />
     </div>
   )
 }
