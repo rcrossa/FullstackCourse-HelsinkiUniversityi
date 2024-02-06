@@ -2,15 +2,27 @@ import { useState } from "react"
 
 // const Button = ({ onClick, text }) => <Button onClick={onClick}>{text}</Button>
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
+const Display = ({ counter }) => {
+  console.log(counter)
+  return (
+
+    <table style={{ display: "flex", flexDirection: 'row', borderCollapse: 'separate', marginBottom: '1rem' }}>
+      <tbody style={{ display: "flex" }}>
+        <tr>
+          {/* <td style={{ alignContent: "flex-end", width: '50px' }}>{text}</td> */}
+          <td style={{ alignContent: "flex-end" }}>{counter}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  )
+}
 const App = () => {
 
 
   const random = () => {
-    let count = anecdotes.length
-    console.log(count)
     let data = Math.floor(Math.random() * anecdotes.length);
-    setSelected(data)
-    console.log(data);
+    setSelected(anecdotes[data])
   }
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -23,13 +35,13 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-  const [selected, setSelected] = useState(0)
+  const [selected, setSelected] = useState([])
 
 
   return (
     <div>
+      <Display counter={selected} />
       <Button onClick={random} text="next anecdote" />
-      {anecdotes[selected]}
     </div>
   )
 }
