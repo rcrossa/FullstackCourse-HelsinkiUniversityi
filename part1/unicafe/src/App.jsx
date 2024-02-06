@@ -3,6 +3,20 @@ import { useState, useEffect } from "react"
 
 const Display = ({ counter, text }) => <div>{text} {counter}</div>
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
+const Stactistics = ({ good, neutral, bad, all, average, positive }) => {
+
+  return (
+    <>
+      <h1>stactistics</h1>
+      <Display counter={good} text='good' />
+      <Display counter={neutral} text='neutral' />
+      <Display counter={bad} text='bad' />
+      <Display counter={all} text='all' />
+      <Display counter={average} text='average' />
+      <Display counter={positive} text='positive' />
+    </>
+  )
+}
 
 const App = () => {
 
@@ -16,7 +30,6 @@ const App = () => {
   const increaseByGood = () => {
     setGood(good + 1);
     setALL(all + 1);
-
   };
   const increaseByNeutral = () => {
     setNeutral(neutral + 1)
@@ -30,14 +43,13 @@ const App = () => {
   useEffect(() => {
     if (isNaN(average)) {
       setAverage(0);
-      console.log("test")
     }
     let dataPositive = (good * 100) / all;
     setPositive(dataPositive);
     let data = (good + neutral + bad) / 3;
     setAverage(data);
 
-  }, [good, all, neutral, bad]);
+  }, [good, all, neutral, bad, average]);
 
   return (
     <div>
@@ -46,13 +58,7 @@ const App = () => {
       <Button onClick={increaseByNeutral} text='neutral' />
       <Button onClick={increaseByBad} text='bad' />
       <h1>stactistics</h1>
-      <Display counter={good} text='good' />
-      <Display counter={neutral} text='neutral' />
-      <Display counter={bad} text='bad' />
-      <Display counter={all} text='all' />
-      <Display counter={average} text='average' />
-      <Display counter={positive} text='positive' />
-
+      <Stactistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
     </div>
   )
 }
