@@ -4,7 +4,6 @@ import { useState } from "react"
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 const Display = ({ counter }) => {
   return (
-
     <table style={{ display: "flex", flexDirection: 'row', borderCollapse: 'separate', marginBottom: '1rem' }}>
       <tbody style={{ display: "flex" }}>
         <tr>
@@ -12,7 +11,6 @@ const Display = ({ counter }) => {
         </tr>
       </tbody>
     </table>
-
   )
 }
 const App = () => {
