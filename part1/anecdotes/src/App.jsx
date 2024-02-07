@@ -3,13 +3,11 @@ import { useState } from "react"
 
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
 const Display = ({ counter }) => {
-  console.log(counter)
   return (
 
     <table style={{ display: "flex", flexDirection: 'row', borderCollapse: 'separate', marginBottom: '1rem' }}>
       <tbody style={{ display: "flex" }}>
         <tr>
-          {/* <td style={{ alignContent: "flex-end", width: '50px' }}>{text}</td> */}
           <td style={{ alignContent: "flex-end" }}>{counter}</td>
         </tr>
       </tbody>
@@ -18,12 +16,13 @@ const Display = ({ counter }) => {
   )
 }
 const App = () => {
+  const [selected, setSelected] = useState([])
+  const [votes, setVotes] = useState([])
+  const [votesSelected, setVotesSelected] = useState(0)
+  const [final, setFinal] = useState([]);
 
 
-  const random = () => {
-    let data = Math.floor(Math.random() * anecdotes.length);
-    setSelected(anecdotes[data])
-  }
+
   const anecdotes = [
     'If it hurts, do it more often.',
     'Adding manpower to a late software project makes it later!',
@@ -35,14 +34,41 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
-  const [selected, setSelected] = useState([])
-  const [votes, setVotes] = useState(0)
-
-  console.log(selected)
-  console.log(votes)
+  const random = () => {
+    let data;
+    data = Math.floor(Math.random() * anecdotes.length);
+    setSelected(anecdotes[data])
+  }
 
   const vote = () => {
-    setVotes(votes + 1)
+    setVotes((prevArray) => [...prevArray, selected])
+    setVotesSelected(votesSelected + 1)
+
+  }
+
+  const calculationVotes = () => {
+    const frequency = {};
+
+    votes.forEach(element => {
+      frequency[element] = (frequency[element] || 0) + 1;
+    });
+
+    let repeat = null;
+    let maximunFrecuency = 0;
+
+    for (const element in frequency) {
+      if (frequency[element] > maximunFrecuency) {
+        repeat = element;
+        maximunFrecuency = frequency[element];
+      }
+    }
+
+
+    if (maximunFrecuency > 1) {
+      setFinal(`The element is (${maximunFrecuency} votes) is: ${repeat} .`);
+    }
+
+
   }
 
   return (
@@ -50,9 +76,12 @@ const App = () => {
       <h1>Phrase</h1>
       <Display counter={selected} />
       <h2>Votes</h2>
-      <Display counter={votes} />
+      <Display counter={votesSelected} />
+      <h2>anecdote with most votes</h2>
+      <Display counter={final} />
       <Button onClick={random} text="next anecdote" />
       <Button onClick={vote} text="vote" />
+      <Button onClick={calculationVotes} text="calculation" />
     </div>
   )
 }
